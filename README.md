@@ -20,6 +20,10 @@ http://purl.obolibrary.org/obo/aro.owl
 
 Editors of this ontology should use the edit version, [src/ontology/aro-edit.owl](src/ontology/aro-edit.owl)
 
+### aro_query
+
+This repo was forked to the iAM.AMR org from CARD's [aro repo](https://github.com/arpcard/aro). aro_query contains a custom script for querying terms from the aro into a flat csv file.
+
 ## Contact
 
 Please contact us at card@mcmaster.ca
