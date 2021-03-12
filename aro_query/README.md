@@ -12,7 +12,7 @@ This script allows you to specify a particular term at which to "start" your que
 1. Install Python 3.8 if you haven't already (for installation instructions see [here](https://goto.iam.amr.pub/python-install))
 1. Download CARD's latest ontology
 1. Create an account with [WebProtege](https://webprotege.stanford.edu/), a user interface for viewing and exploring ontologies that will allow you to determine the "start" and "end" points of your query
-1. Download CARD's [latest version of the ARO here](https://card.mcmaster.ca/latest/ontology).
+1. Download CARD's [latest version of the ARO here](https://card.mcmaster.ca/latest/ontology). Alternatively, you can download the forked copy from this repo: [aro.owl](https://github.com/iAM-AMR/aro/blob/master/aro.owl)
 - Right-click on the download, select `7-Zip/Extract Files...` and select a location for the tar file.
 - Navigate to the tar folder you just created, right-click on the `card-ontology.tar` file that's inside the folder, and select `7-Zip/Extract Here`
 - You should now see a file called `aro.owl` within this directory
@@ -27,8 +27,11 @@ This script allows you to specify a particular term at which to "start" your que
 1. Open a Windows PowerShell window from the location this repository is saved to
 1. Enter `pipenv install` to load the dependencies you'll need to run the script
 1. Run the query with: `python aro_query.py <start_aro> <depth>`
+
    - `<start_aro>` is the ARO accession number for the starting point of your query, i.e. `ARO_3004388`, which corresponds to `in-vitro microbial susceptibility test`
+   
    - `<depth>` specifies how many "levels" of subclasses downwards from the start term that you'd like to extract to your csv
+   
    - For example: `python aro_query.py ARO_3004388 2` will extract all of the subclasses of the term with the identifier `ARO_3004388`. Since the `<depth>` argument is set to `2`, it will also extract any subclasses of the terms identified as subclasses of the starting identifier.
 
 ## Output
