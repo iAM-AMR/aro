@@ -1,13 +1,16 @@
 from owlready2 import *
 import csv
 import sys
+import os
 
 def query_card(start_id=sys.argv[1], depth=sys.argv[2]):
 
     #  Load the ontology
+    
+    os.chdir('..')
+    aro_path = os.path.abspath(os.curdir)
 
-    #onto = get_ontology("file://C:/Users/CHPHILLI/Documents/CARD/card-ontology/aro.owl").load()
-    onto = get_ontology("https://raw.githubusercontent.com/arpcard/aro/master/aro.owl").load()
+    onto = get_ontology(aro_path + '\\aro.owl').load()
 
     namespace = onto.get_namespace("http://purl.obolibrary.org/obo/")
 
@@ -48,7 +51,7 @@ def query_card(start_id=sys.argv[1], depth=sys.argv[2]):
     rows = zip(subclass_list, label_list)
 
     #   Write to csv
-    file = open('card-query.csv', 'w', newline='')
+    file = open('aro-query.csv', 'w', newline='')
     with file:
         writer = csv.writer(file)
         writer.writerow(['ARO_id', 'label'])
