@@ -3,7 +3,7 @@ import csv
 import sys
 import os
 
-def query_card(start_id=sys.argv[1], depth=sys.argv[2]):
+def aro_query(start_id=sys.argv[1], depth=sys.argv[2]):
 
     #  Load the ontology
     
@@ -40,25 +40,52 @@ def query_card(start_id=sys.argv[1], depth=sys.argv[2]):
                 # Prevent the current ARO element from having its subclasses pulled again by marking it as done
                 done.append(checking)
     
+    #   Extract the parent term of "child" term in the subclass list, and extract the labels for each term in the subclass list
+    
+    hierarchy_dict = dict.fromkeys(subclass_list)
+    label_list = []
+    
+    for term in hierarchy_dict:
+        
+        # Extract the labels
+        query_label_string = 'namespace.%s.label' % (term)
+        label_list.append(eval(query_label_string)[0])
+        
+        # Search for terms that are subclasses ("children") of the current <term> (the "parent")
+        search_string = 'onto.search(is_a = namespace.%s)' % (term)
+        children = eval(search_string)
+        children = [str(aro).split('.')[1] for aro in children]
+        
+        # Map the current parent to any of its children that are part of the hierarchy dictionary
+        for c in range(len(children)):
+            child = children[c]
+            
+            # Since the onto.search method includes the search term or parent in the returned results, skip the parent (otherwise the parent of this term will be recorded as itself).
+            # Also, skip any children that are not present in the hierarchy dictionary.
+            if child != term and child in subclass_list:
+                hierarchy_dict[child] = term
+                
+    parent_terms = list(hierarchy_dict.values())
+                
     #   Store labels in a separate list
 
-    label_list = []
-    for i in range(len(subclass_list)):
-        query_label_string = 'namespace.%s.label' % (subclass_list[i])
-        label_list.append(eval(query_label_string)[0])
+    #label_list = []
+    #for i in range(len(subclass_list)):
+        #query_label_string = 'namespace.%s.label' % (subclass_list[i])
+        #label_list.append(eval(query_label_string)[0])
 
-    #   Combine two lists in preparation for writing to a csv
-    rows = zip(subclass_list, label_list)
+    #   Combine the lists in preparation for writing to a csv
+    rows = zip(subclass_list, label_list, parent_terms)
 
     #   Write to csv
     file = open('aro-query.csv', 'w', newline='')
     with file:
         writer = csv.writer(file)
-        writer.writerow(['ARO_id', 'label'])
+        writer.writerow(['ARO_id', 'label', 'parent_ARO_id'])
         for row in rows:
             writer.writerow(row)
 
 # Allow function to be called from the command line
        
 if __name__ == '__main__':
-    query_card(sys.argv[1], sys.argv[2])
+    aro_query(sys.argv[1], sys.argv[2])
