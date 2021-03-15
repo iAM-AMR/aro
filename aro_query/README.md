@@ -13,9 +13,13 @@ This script allows you to specify a particular term at which to "start" your que
 1. Download CARD's latest ontology
 1. Create an account with [WebProtege](https://webprotege.stanford.edu/), a user interface for viewing and exploring ontologies that will allow you to determine the "start" and "end" points of your query
 1. Download CARD's [latest version of the ARO here](https://card.mcmaster.ca/latest/ontology). Alternatively, you can download the forked copy from this repo: [aro.owl](https://github.com/iAM-AMR/aro/blob/master/aro.owl)
+
    - Right-click on the download, select `7-Zip/Extract Files...` and select a location for the tar file.
+   
    - Navigate to the tar folder you just created, right-click on the `card-ontology.tar` file that's inside the folder, and select `7-Zip/Extract Here`
+   
    - You should now see a file called `aro.owl` within this directory
+   
 1. Load `aro.owl` into WebProtege for viewing, and select "Entities" to view a hierarchy of all of the terms in the ontology
 1. Determine your query's starting term and depth
 
@@ -38,6 +42,8 @@ This script allows you to specify a particular term at which to "start" your que
 
 The script returns a csv file called `aro_query.csv`. It has 2 columns: 
 
-- **ARO_id**: the accession number (unique identifier) for the term, designated by 
+- **ARO_id**: the accession number (unique identifier) of the term, designated by CARD
 
 - **label**: a unique textual description of the term, also designated by CARD
+
+- **parent_ARO_id**: the accession number (unique identifier) of the term that this term is a subclass of
