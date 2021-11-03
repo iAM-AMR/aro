@@ -1,4 +1,4 @@
-# aro_query
+# query_ontology
 
 This Python script will query a user-specified section of [CARD's Antibiotic Resistance Ontology](https://github.com/arpcard/aro/blob/master/README.md), extracting it to a csv file for further use.
 
@@ -30,13 +30,13 @@ This script allows you to specify a particular term at which to "start" your que
 1. Clone this repository to your local computer
 1. Open a Windows PowerShell window from the location this repository is saved to
 1. Enter `pipenv install` to load the dependencies you'll need to run the script
-1. Run the query with: `python aro_query.py <start_aro> <depth>`
+1. Run the query with: `python query_ontology.py <start_aro> <depth>`
 
    - `<start_aro>` is the ARO accession number for the starting point of your query, i.e. `ARO_3004388`, which corresponds to `in-vitro microbial susceptibility test`
    
    - `<depth>` specifies how many "levels" of subclasses downwards from the start term that you'd like to extract to your csv
    
-   - For example: `python aro_query.py ARO_3004388 2` will extract all of the subclasses of the term with the identifier `ARO_3004388`. Since the `<depth>` argument is set to `2`, it will also extract any subclasses of the terms identified as subclasses of the starting identifier.
+   - For example: `python query_ontology.py ARO_3004388 2` will extract all of the subclasses of the term with the identifier `ARO_3004388`. Since the `<depth>` argument is set to `2`, it will also extract any subclasses of the terms identified as subclasses of the starting identifier.
 
 ## Output
 
